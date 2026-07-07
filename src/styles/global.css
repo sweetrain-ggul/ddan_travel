@@ -110,14 +110,14 @@ select {
 
 .control-unit {
   min-width: 44px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--accent-strong);
 }
 
 .control-unit--large {
-  min-width: 54px;
-  font-size: 22px;
+  min-width: 64px;
+  font-size: 28px;
 }
 
 .input-large {
@@ -232,7 +232,7 @@ select {
   }
 
   .control-unit--large {
-    font-size: 18px;
-    min-width: 40px;
+    font-size: 22px;
+    min-width: 48px;
   }
 }
