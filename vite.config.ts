@@ -3,6 +3,9 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   base: "/ddan_travel/",
+  build: {
+    outDir: "docs",
+  },
   server: {
     host: true,
   },

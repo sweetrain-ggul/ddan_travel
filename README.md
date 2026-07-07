@@ -105,31 +105,26 @@ PWA는 보통 안전한 주소(`https://`)에서 열려야 하고, 홈 화면에
 
 ## GitHub Pages로 배포하는 방법
 
-GitHub를 이미 쓰고 있다면 이것도 괜찮습니다. 다만 Netlify보다 설정이 조금 더 많습니다.
+GitHub를 이미 쓰고 있다면 이 방법도 괜찮습니다. 지금 프로젝트는 **`main` 브랜치의 `docs` 폴더**를 배포용으로 쓰도록 맞춰뒀습니다.
 
 ### 가장 쉬운 방식
 
-1. GitHub에서 새 저장소를 만듭니다.
-2. 저장소 이름을 `내아이디.github.io`처럼 **계정명.github.io** 형식으로 만듭니다.
-3. 저장소는 `Public`으로 만드는 것이 가장 쉽습니다.
-4. 이 프로젝트 코드를 그 저장소에 올립니다.
-5. GitHub 저장소의 `Settings` > `Pages`로 들어갑니다.
-6. `Source`를 `GitHub Actions`로 선택합니다.
-7. 저장소에 있는 `.github/workflows/pages.yml` 파일이 자동으로 빌드와 배포를 해줍니다.
-8. 배포가 끝나면 `https://내아이디.github.io` 주소가 생깁니다.
+1. GitHub 저장소를 만든 뒤, 이 프로젝트를 push 합니다.
+2. 터미널에서 `npm run build`를 실행하면 `docs` 폴더가 만들어집니다.
+3. GitHub 저장소의 `Settings` > `Pages`로 들어갑니다.
+4. `Source`를 `Deploy from a branch`로 선택합니다.
+5. Branch는 `main`, Folder는 `/docs`로 선택합니다.
+6. 저장하면 GitHub Pages가 배포를 시작합니다.
+7. 배포가 끝나면 `https://sweetrain-ggul.github.io/ddan_travel/` 주소가 생깁니다.
 
-### 이미 준비된 것
+### 왜 이 방식이 쉬운가
 
-- GitHub Pages용 워크플로우: [\.github/workflows/pages.yml](/Users/sweetrain/projects/travel/vietnam/.github/workflows/pages.yml:1)
-
-### 이 방식의 장점
-
-- GitHub만 있으면 됨
-- 무료로 배포 가능
-- 코드 수정 후 push 하면 자동 배포됨
+- GitHub Actions 권한이 필요 없습니다
+- GitHub 웹 설정만 하면 됩니다
 - 안드로이드 Chrome에서 홈 화면 추가 가능
 
-### 이 방식의 단점
+### 중요한 점
 
-- Netlify보다 처음 설정이 조금 더 많음
-- 일반 저장소 이름으로 배포하면 경로 설정이 더 복잡해질 수 있음
+- 이 방법은 `docs` 폴더를 배포용으로 사용합니다
+- `npm run build`를 실행할 때마다 `docs`가 다시 만들어집니다
+- GitHub Pages 설정에서 `main /docs`를 꼭 선택해야 합니다
