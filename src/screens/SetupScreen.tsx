@@ -11,6 +11,7 @@ type SetupScreenProps = {
 export function SetupScreen({ settings, onChangeSettings, onNext }: SetupScreenProps) {
   const currentRate = settings.rates[settings.selectedCurrency];
   const selectedCurrencyConfig = currencies.find((currency) => currency.code === settings.selectedCurrency);
+  const displayRate = currentRate.krwPerUnit > 0 ? String(currentRate.krwPerUnit) : "";
 
   const unitText = useMemo(() => {
     if (selectedCurrencyConfig?.code === "VND") {
@@ -83,17 +84,20 @@ export function SetupScreen({ settings, onChangeSettings, onNext }: SetupScreenP
         </label>
 
         <label className="field">
-          <span className="label">{unitText} 원</span>
-          <input
-            className="control input-number"
-            inputMode="decimal"
-            type="number"
-            min="0"
-            step="0.1"
-            value={currentRate.krwPerUnit || ""}
-            placeholder={selectedCurrencyConfig?.code === "VND" ? "예: 5.5" : "예: 900"}
-            onChange={(event) => handleRateChange(event.target.value)}
-          />
+          <span className="label">{unitText}</span>
+          <div className="control-with-unit">
+            <input
+              className="control input-number"
+              inputMode="decimal"
+              type="number"
+              min="0"
+              step="0.1"
+              value={displayRate}
+              placeholder={selectedCurrencyConfig?.code === "VND" ? "예: 6" : "예: 900"}
+              onChange={(event) => handleRateChange(event.target.value.replace(/,/g, ""))}
+            />
+            <span className="control-unit">원</span>
+          </div>
         </label>
 
         <button className="primary-button" type="button" onClick={onNext}>

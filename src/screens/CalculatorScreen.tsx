@@ -25,6 +25,9 @@ export function CalculatorScreen({
   }, [calculatorState.inputAmount, currentRate]);
 
   const resultText = `${formatKrw(result)}원`;
+  const displayAmount = calculatorState.inputAmount
+    ? Number(calculatorState.inputAmount).toLocaleString("ko-KR")
+    : "";
 
   return (
     <main className="screen screen-calculator">
@@ -43,20 +46,23 @@ export function CalculatorScreen({
 
         <label className="field">
           <span className="label label--large">금액 입력</span>
-          <input
-            className="control input-number input-large"
-            inputMode="numeric"
-            type="text"
-            value={calculatorState.inputAmount}
-            placeholder="숫자만 입력"
-            onChange={(event) =>
-              onChangeCalculatorState({
-                ...calculatorState,
-                inputAmount: event.target.value.replace(/[^\d]/g, ""),
-                resultKrw: result,
-              })
-            }
-          />
+          <div className="control-with-unit control-with-unit--large">
+            <input
+              className="control input-number input-large"
+              inputMode="numeric"
+              type="text"
+              value={displayAmount}
+              placeholder="숫자만 입력"
+              onChange={(event) =>
+                onChangeCalculatorState({
+                  ...calculatorState,
+                  inputAmount: event.target.value.replace(/[^\d]/g, ""),
+                  resultKrw: result,
+                })
+              }
+            />
+            <span className="control-unit control-unit--large">동</span>
+          </div>
         </label>
 
         <div className="actions">
