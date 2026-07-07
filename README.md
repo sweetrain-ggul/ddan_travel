@@ -103,28 +103,24 @@ PWA는 보통 안전한 주소(`https://`)에서 열려야 하고, 홈 화면에
 - 휴대폰에 설치하려면 휴대폰이 접근할 수 있는 인터넷 주소가 필요합니다.
 - 무료 배포 후에야 폰에서 바탕화면 설치를 할 수 있습니다.
 
-## GitHub Pages로 배포하는 방법
+## GitHub Pages 자동 배포
 
-GitHub를 이미 쓰고 있다면 이 방법도 괜찮습니다. 지금 프로젝트는 **`main` 브랜치의 `docs` 폴더**를 배포용으로 쓰도록 맞춰뒀습니다.
+이 프로젝트는 GitHub Actions로 자동 배포하도록 설정할 수 있습니다.
 
-### 가장 쉬운 방식
+### 동작 방식
 
-1. GitHub 저장소를 만든 뒤, 이 프로젝트를 push 합니다.
-2. 터미널에서 `npm run build`를 실행하면 `docs` 폴더가 만들어집니다.
-3. GitHub 저장소의 `Settings` > `Pages`로 들어갑니다.
-4. `Source`를 `Deploy from a branch`로 선택합니다.
-5. Branch는 `main`, Folder는 `/docs`로 선택합니다.
-6. 저장하면 GitHub Pages가 배포를 시작합니다.
-7. 배포가 끝나면 `https://sweetrain-ggul.github.io/ddan_travel/` 주소가 생깁니다.
+1. 코드를 `main` 브랜치에 push 한다.
+2. GitHub Actions가 자동으로 `npm ci`와 `npm run build`를 실행한다.
+3. 만들어진 `dist` 결과물을 GitHub Pages에 배포한다.
+4. 배포가 끝나면 `https://sweetrain-ggul.github.io/ddan_travel/` 주소에서 열린다.
 
-### 왜 이 방식이 쉬운가
+### 필요한 설정
 
-- GitHub Actions 권한이 필요 없습니다
-- GitHub 웹 설정만 하면 됩니다
-- 안드로이드 Chrome에서 홈 화면 추가 가능
+1. GitHub 저장소에서 `Settings` > `Pages`로 들어간다.
+2. `Source`를 `GitHub Actions`로 선택한다.
+3. 저장소에 있는 `.github/workflows/pages.yml` 워크플로우가 배포를 담당한다.
 
-### 중요한 점
+### 중요
 
-- 이 방법은 `docs` 폴더를 배포용으로 사용합니다
-- `npm run build`를 실행할 때마다 `docs`가 다시 만들어집니다
-- GitHub Pages 설정에서 `main /docs`를 꼭 선택해야 합니다
+- 자동 배포를 쓰려면 워크플로우 파일이 GitHub 저장소에 올라가 있어야 한다.
+- 현재 로컬에서는 워크플로우 파일을 준비했지만, GitHub 인증이 필요하다.
