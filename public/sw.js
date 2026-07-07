@@ -1,4 +1,5 @@
-const CACHE_NAME = "vietnam-currency-calculator-v1";
+const CACHE_NAME = "vietnam-currency-calculator-v2";
+const APP_SHELL = `${self.location.origin}/ddan_travel/`;
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();
@@ -20,6 +21,34 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  const requestUrl = new URL(event.request.url);
+  const isSameOrigin = requestUrl.origin === self.location.origin;
+  const isNavigationRequest =
+    event.request.mode === "navigate" || event.request.destination === "document";
+
+  if (isNavigationRequest) {
+    event.respondWith(
+      (async () => {
+        try {
+          const response = await fetch(event.request);
+          if (response && response.ok && isSameOrigin) {
+            const cache = await caches.open(CACHE_NAME);
+            cache.put(APP_SHELL, response.clone());
+          }
+          return response;
+        } catch {
+          const cached = await caches.match(APP_SHELL);
+          if (cached) {
+            return cached;
+          }
+
+          throw new Error("Offline");
+        }
+      })(),
+    );
+    return;
+  }
+
   event.respondWith(
     (async () => {
       const cached = await caches.match(event.request);
@@ -29,19 +58,12 @@ self.addEventListener("fetch", (event) => {
 
       try {
         const response = await fetch(event.request);
-        if (response && response.ok && new URL(event.request.url).origin === self.location.origin) {
+        if (response && response.ok && isSameOrigin) {
           const cache = await caches.open(CACHE_NAME);
           cache.put(event.request, response.clone());
         }
         return response;
       } catch {
-        if (event.request.mode === "navigate") {
-          const fallback = await caches.match("/");
-          if (fallback) {
-            return fallback;
-          }
-        }
-
         throw new Error("Offline");
       }
     })(),

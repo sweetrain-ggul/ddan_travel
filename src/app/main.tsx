@@ -12,7 +12,9 @@ createRoot(rootElement).render(<App />);
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {
+    navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`, {
+      updateViaCache: "none",
+    }).catch(() => {
       // 설치 지원이 깨지지 않도록 조용히 무시
     });
   });
