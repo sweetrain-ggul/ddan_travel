@@ -1,0 +1,18 @@
+{
+  "name": "베트남 동 계산기",
+  "short_name": "환율 계산기",
+  "description": "베트남 동과 다른 통화를 원화로 간단하게 계산하는 앱",
+  "start_url": "/ddan_travel/",
+  "scope": "/ddan_travel/",
+  "display": "standalone",
+  "background_color": "#f6f1e8",
+  "theme_color": "#1f6f4a",
+  "icons": [
+    {
+      "src": "/ddan_travel/pwa-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
